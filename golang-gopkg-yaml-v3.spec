@@ -1,27 +1,26 @@
-%global debug_package %{nil}
-
 # Run tests in check section
-%bcond_with check
+%bcond_without check
 
 # https://github.com/go-yaml/yaml
 %global goipath		gopkg.in/yaml.v3
 %global forgeurl	https://github.com/go-yaml/yaml
-Version:			3.0.1
+Version:		3.0.1
 
 %gometa
 
 Summary:	YAML support for the Go language
 Name:		golang-gopkg-yaml-v3
 
-Release:	1
+Release:	2
 Source0:	https://github.com/go-yaml/yaml/archive/v%{version}/yaml-%{version}.tar.gz
 URL:		https://github.com/go-yaml/yaml
-License:	GPL
+License:	ASL-2.0
 Group:		Development/Other
 BuildRequires:	compiler(go-compiler)
 %if %{with check}
 BuildRequires:	golang(gopkg.in/check.v1)
 %endif
+BuildArch:	noarch
 
 %description
 The yaml package enables Go programs to comfortably encode
@@ -62,8 +61,8 @@ building other packages which use import path with
 %{goipath} prefix.
 
 %files devel -f devel.file-list
-%license LICENSE
-%doc NOTICE
+%license LICENSE NOTICE
+%doc README.md
 
 #-----------------------------------------------------------------------
 
@@ -72,15 +71,9 @@ building other packages which use import path with
 
 %build
 %gobuildroot
-for cmd in $(ls -1 cmd) ; do
-	%gobuild -o _bin/$cmd %{goipath}/cmd/$cmd
-done
 
 %install
 %goinstall
-for cmd in $(ls -1 _bin) ; do
-  install -Dpm 0755 _bin/$cmd %{buildroot}%{_bindir}/$cmd
-done
 
 %check
 %if %{with check}
