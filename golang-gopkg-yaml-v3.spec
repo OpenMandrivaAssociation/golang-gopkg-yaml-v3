@@ -14,7 +14,7 @@ Name:		golang-gopkg-yaml-v3
 Release:	2
 Source0:	https://github.com/go-yaml/yaml/archive/v%{version}/yaml-%{version}.tar.gz
 URL:		https://github.com/go-yaml/yaml
-License:	ASL-2.0
+License:	ASL 2.0
 Group:		Development/Other
 BuildRequires:	compiler(go-compiler)
 %if %{with check}
